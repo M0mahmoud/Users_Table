@@ -17,9 +17,7 @@ const Pagination = ({
     <div className="d-flex justify-content-center">
       <nav aria-label="Page navigation">
         <ul className="pagination ">
-          {currentPage == 1 ? (
-            ""
-          ) : (
+          {currentPage > 1 && (
             <li className="page-item ">
               <button
                 onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -45,7 +43,7 @@ const Pagination = ({
               </button>
             </li>
           ))}
-          {pageNumbers.length != currentPage ? (
+          {currentPage < pageNumbers.length && (
             <li className="page-item">
               <button
                 onClick={() => setCurrentPage((prev) => prev + 1)}
@@ -55,8 +53,6 @@ const Pagination = ({
                 <span aria-hidden="true">&raquo;</span>
               </button>
             </li>
-          ) : (
-            ""
           )}
         </ul>
       </nav>

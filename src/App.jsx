@@ -7,21 +7,17 @@ import Header from "./components/Header";
 
 function App() {
   console.log("App Running");
-  const [cartIsShown, setCartIsShown] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
-  const showFormHandler = () => {
-    setCartIsShown((prev) => !prev);
+  const toggleForm = () => {
+    setShowForm(!showForm);
   };
-  const hideFormHandler = () => {
-    setCartIsShown((prev) => !prev);
-  };
-
   return (
     <div className="bg-dark w-100 mh-100 ">
       <div className="container-xl">
-        <Header showForm={showFormHandler} />
+        <Header toggleForm={toggleForm} />
         <Home />
-        {cartIsShown && <AddUser onClose={hideFormHandler} />}
+        {showForm && <AddUser toggleForm={toggleForm} />}
       </div>
     </div>
   );

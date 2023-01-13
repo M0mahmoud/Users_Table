@@ -4,7 +4,7 @@ import Modal from "../components/UI/Model";
 import { useDispatch } from "react-redux";
 import { userAction } from "../store/usersSlice";
 
-const AddUser = ({ onClose }) => {
+const AddUser = ({ toggleForm }) => {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: "",
@@ -14,19 +14,19 @@ const AddUser = ({ onClose }) => {
     gender: "",
   });
 
+  const newUser = {
+    first_name: userData.name,
+    email: userData.email,
+    gender: userData.gender,
+    phone_number: userData.phone,
+    date_of_birth: userData.bDay,
+    id: Number(Math.ceil(Math.random() * 900)),
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      userAction.addUser({
-        first_name: userData.name,
-        email: userData.email,
-        gender: userData.gender,
-        phone_number: userData.phone,
-        date_of_birth: userData.bDay,
-        // if exsit same id  ?!?
-        id: Number(Math.ceil(Math.random() * 900)),
-      })
-    );
+    dispatch(userAction.addUser(newUser));
+
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -42,7 +42,7 @@ const AddUser = ({ onClose }) => {
 
   return (
     <>
-      <Modal onClose={onClose}>
+      <Modal onClose={toggleForm}>
         <div className="p-3">
           <h4 className=" mb-3 py-2 text-light bg-primary text-center rounded-3  ">
             Users Details
@@ -136,7 +136,7 @@ const AddUser = ({ onClose }) => {
               <button
                 type="button"
                 className="btn btn-danger text-center"
-                onClick={onClose}
+                onClick={toggleForm}
               >
                 Cancel
               </button>

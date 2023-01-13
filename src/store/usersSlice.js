@@ -40,9 +40,6 @@ const usersSlice = createSlice({
         return a.id - b.id;
       });
     },
-    genderFilter(state,action){
-      state.data.filter((el)=> el.gender ==action.payload)
-    }
   },
   extraReducers: (builder) => {
     //fetch Users

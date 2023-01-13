@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { getUsers } from "../store/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import Table from "../components/table/Table";
 import LoadingContent from "../components/LoadingContent";
 
-const Home = ({}) => {
+const Home = () => {
+  console.log("home");
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.users);
-  console.log("data", data);
+
+  const getUsersCallback = useCallback(() => dispatch(getUsers()), []);
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, []);
+    getUsersCallback();
+  }, [getUsersCallback]);
 
   return (
     <>
       <LoadingContent loading={loading} error={error}>
-        <Table data={data} />
+        {data && <Table data={data} />}
       </LoadingContent>
     </>
   );
